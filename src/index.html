@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Harmonica Keyfinder</title>
+	<script src="phonegap.0.9.5.js"></script>
+	<script src="jquery.mobile/jquery-1.6.4.min.js"></script>
+	<script src="script.js"></script>
+	<script src="jquery.mobile/jquery.mobile-1.0rc1.min.js"></script>
+	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.0rc1.min.css" />
+	<link rel="stylesheet" href="style.css" />
+	<script src="harpHelper.js"></script>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" /> 
+</head>
+<body>
+<div data-role="page" id="mainPage">
+    <div data-role="header" data-position="inline">
+        <h1>Harp Keyfinder</h1>
+		<a id="fullscreenBtn" data-icon="grid" data-iconpos="notext" class="ui-btn-left"></a>
+		<a href="#aboutDialog" data-icon="info" data-rel="dialog" data-iconpos="notext" class="ui-btn-right" data-transition="none"></a>
+		<div data-role="navbar">
+			<ul>
+				<li><a id="key" data-icon="custom" href="#songKeyDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Key D</a></li>
+				<li><a id="pos" data-icon="custom" href="#positionDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>2<sup>nd</sup> Pos</a></li>
+				<li><a id="harp" data-icon="custom" href="#harpKeyDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>A harp</a></li>
+			</ul>
+		</div><!-- /navbar -->
+    </div>
+    <div data-role="content">
+
+        <table id="mainTable" class="harpTable mainTable" cellspacing="0" cellpadding="0">
+			<tr class="playRow blow2">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="last"></td>
+			</tr>
+			<tr class="playRow blow1">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="last"></td>
+			</tr>
+			<tr class="playRow blow0">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="last"></td>
+			</tr>
+			<tr class="holeRow">
+				<td><span>1</span></td>
+				<td><span>2</span></td>
+				<td><span>3</span></td>
+				<td><span>4</span></td>
+				<td><span>5</span></td>
+				<td><span>6</span></td>
+				<td><span>7</span></td>
+				<td><span>8</span></td>
+				<td><span>9</span></td>
+				<td class="last"><span>10</span></td>
+			</tr>
+			<tr class="playRow draw0">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="last"></td>
+			</tr>
+			<tr class="playRow draw1">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="overdraw"></td>
+				<td></td>
+				<td class="overdraw"></td>
+				<td class="overdraw last"></td>
+			</tr>
+			<tr class="playRow draw2">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="last"></td>
+			</tr>
+			<tr class="playRow draw3">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="last"></td>
+			</tr>
+		</table>
+		
+		<div id="legendTable" class="harpTable">
+			<div class="blow0">
+				<div class="legendItem">
+					<div class="last box"><span class="scale-note-0">&nbsp;</span></div>
+					<div>Tonic note</div>
+				</div>
+				<div class="legendItem">
+					<div class="last box"><span class="scale-note-1">&nbsp;</span></div>
+					<div>Scale note</div>
+				</div>
+				<div class="legendItem">
+					<div class="last box"><span class="overblow">A</span></div>
+					<div>Overblow</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div data-role="footer" style="position:absolute; bottom: 0; left:0;">
+		<div data-role="navbar">
+			<ul>
+				<li><a id="overblows" class="obs-on" data-icon="custom" data-transition="none"><sup class="hidesup">&nbsp;</sup>Overblows</a></li>
+				<li><a id="scale" data-icon="text" href="#scaleDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Scale</a></li>
+				<li><a id="tuning" data-icon="text" href="#tuningDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Tuning</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div>
+</div>
+<div data-role="page" id="aboutDialog">
+    <div data-role="header">
+		<h3>About</h3>
+	</div>
+	<div data-role="content">
+		<p><b>Harmonica Keyfinder</b><br> by Jonathan Cardy, 2011</p>
+		<p>Contact jcardy@gmail.com</p>
+		<p>Icons by Joseph Wain / glyphish.com</p>
+	</div>
+</div>
+
+<div data-role="page" id="positionDialog" class="radioDialog">
+    <div data-role="header">
+		<h3>Position</h3>
+	</div>
+	<div data-role="content">
+		<fieldset data-role="controlgroup" data-type="horizontal">
+			<input type="radio" name="position" id="position-1" value="1" />
+			<label for="position-1">1<sup>st</sup></label>
+			
+			<input type="radio" name="position" id="position-2" value="2" />
+			<label for="position-2">2<sup>nd</sup></label>
+			
+			<input type="radio" name="position" id="position-3" value="3" />
+			<label for="position-3">3<sup>rd</sup></label>
+			
+			<input type="radio" name="position" id="position-4" value="4" />
+			<label for="position-4">4<sup>th</sup></label>
+			
+			<input type="radio" name="position" id="position-5" value="5" />
+			<label for="position-5">5<sup>th</sup></label>
+			
+			<input type="radio" name="position" id="position-6" value="6" />
+			<label for="position-6">6<sup>th</sup></label>
+			
+			<input type="radio" name="position" id="position-7" value="7" />
+			<label for="position-7">7<sup>th</sup></label>
+			
+			<input type="radio" name="position" id="position-8" value="8" />
+			<label for="position-8">8<sup>th</sup></label>
+			
+			<input type="radio" name="position" id="position-9" value="9" />
+			<label for="position-9">9<sup>th</sup></label>
+			
+			<input type="radio" name="position" id="position-10" value="10" />
+			<label for="position-10">10<sup>th</sup></label>
+
+			<input type="radio" name="position" id="position-11" value="11" />
+			<label for="position-11">11<sup>th</sup></label>	
+			
+			<input type="radio" name="position" id="position-12" value="12" />
+			<label for="position-12">12<sup>th</sup></label>		
+		</fieldset>
+	</div>
+</div>
+
+<div data-role="page" id="songKeyDialog" class="radioDialog">
+    <div data-role="header">
+		<h3>Song key</h3>
+	</div>
+	<div data-role="content">
+		<fieldset data-role="controlgroup" data-type="horizontal">
+			<input type="radio" name="song-key" id="song-key-Ab" value="Ab" />
+			<label for="song-key-Ab">Ab</label>
+			<input type="radio" name="song-key" id="song-key-A" value="A" />
+			<label for="song-key-A">A</label>
+			<input type="radio" name="song-key" id="song-key-B" value="B" />
+			<label for="song-key-B">B</label>
+			<input type="radio" name="song-key" id="song-key-Bb" value="Bb" />
+			<label for="song-key-Bb">Bb</label>
+			<input type="radio" name="song-key" id="song-key-C" value="C" />
+			<label for="song-key-C">C</label>
+			<input type="radio" name="song-key" id="song-key-Cs" value="Cs" />
+			<label for="song-key-Cs">C#</label>
+			<input type="radio" name="song-key" id="song-key-D" value="D" />
+			<label for="song-key-D">D</label>
+			<input type="radio" name="song-key" id="song-key-Eb" value="Eb" />
+			<label for="song-key-Eb">Eb</label>
+			<input type="radio" name="song-key" id="song-key-E" value="E" />
+			<label for="song-key-E">E</label>
+			<input type="radio" name="song-key" id="song-key-F" value="F" />
+			<label for="song-key-F">F</label>
+			<input type="radio" name="song-key" id="song-key-Fs" value="Fs" />
+			<label for="song-key-Fs">F#</label>
+			<input type="radio" name="song-key" id="song-key-G" value="G" />
+			<label for="song-key-G">G</label>
+		</fieldset>
+	</div>
+</div>
+
+<div data-role="page" id="harpKeyDialog" class="radioDialog">
+    <div data-role="header">
+		<h3>Harp key</h3>
+	</div>
+	<div data-role="content">
+		<fieldset data-role="controlgroup" data-type="horizontal">
+			<input type="radio" name="harp-key" id="harp-key-Ab" value="Ab" />
+			<label for="harp-key-Ab">Ab</label>
+			<input type="radio" name="harp-key" id="harp-key-A" value="A" />
+			<label for="harp-key-A">A</label>
+			<input type="radio" name="harp-key" id="harp-key-B" value="B" />
+			<label for="harp-key-B">B</label>
+			<input type="radio" name="harp-key" id="harp-key-Bb" value="Bb" />
+			<label for="harp-key-Bb">Bb</label>
+			<input type="radio" name="harp-key" id="harp-key-C" value="C" />
+			<label for="harp-key-C">C</label>
+			<input type="radio" name="harp-key" id="harp-key-Cs" value="Cs" />
+			<label for="harp-key-Cs">C#</label>
+			<input type="radio" name="harp-key" id="harp-key-D" value="D" />
+			<label for="harp-key-D">D</label>
+			<input type="radio" name="harp-key" id="harp-key-Eb" value="Eb" />
+			<label for="harp-key-Eb">Eb</label>
+			<input type="radio" name="harp-key" id="harp-key-E" value="E" />
+			<label for="harp-key-E">E</label>
+			<input type="radio" name="harp-key" id="harp-key-F" value="F" />
+			<label for="harp-key-F">F</label>
+			<input type="radio" name="harp-key" id="harp-key-Fs" value="Fs" />
+			<label for="harp-key-Fs">F#</label>
+			<input type="radio" name="harp-key" id="harp-key-G" value="G" />
+			<label for="harp-key-G">G</label>
+		</fieldset>
+	</div>
+</div>
+
+<div data-role="page" id="scaleDialog">
+    <div data-role="header">
+		<h3>Scale</h3>
+	</div>
+	<div data-role="content">
+		<fieldset data-role="controlgroup">
+			<input type="radio" name="scale" id="scale-none" value="none" />
+			<label for="scale-none">None</label>
+			<input type="radio" name="scale" id="scale-blues" value="blues" />
+			<label for="scale-blues">Blues</label>
+			<input type="radio" name="scale" id="scale-major" value="major" />
+			<label for="scale-major">Major</label>
+			<input type="radio" name="scale" id="scale-minor" value="minor" />
+			<label for="scale-minor">Dorian minor</label>
+		</fieldset>
+	</div>
+</div>
+
+<div data-role="page" id="tuningDialog">
+    <div data-role="header">
+		<h3>Scale</h3>
+	</div>
+	<div data-role="content">
+		<fieldset data-role="controlgroup">
+			<input type="radio" name="tuning" id="tuning-richter" value="richter" />
+			<label for="tuning-richter">Richter <span style="font-size:13px">(Standard)</span></label>
+			<input type="radio" name="tuning" id="tuning-minor" value="minor" />
+			<label for="tuning-minor">Natural Minor</label>
+			<input type="radio" name="tuning" id="tuning-country" value="country" />
+			<label for="tuning-country">Country</label>
+			<input type="radio" name="tuning" id="tuning-paddy-richter" value="paddy-richter" />
+			<label for="tuning-paddy-richter">Paddy Richter</label>
+			<input type="radio" name="tuning" id="tuning-melody-maker" value="melody-maker" />
+			<label for="tuning-melody-maker">Melody Maker</label>
+		</fieldset>
+	</div>
+</div>
+
+</body>
