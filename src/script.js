@@ -11,11 +11,11 @@ $(function(){
 		initialLoadComplete,
 		helper = getHarpHelper(),
 		landscape = $(window).height() < $(window).width(),
-		fullscreen = landscape,		
+		fullscreen = false,		
 		table = $("#mainTable"),
 		cells = $("td", table),
 		cache,
-		userUpdating,
+		userUpdating = true,
 		pageReady,
 		tableRows = [$(".blow2 td", table),
 					 $(".blow1 td", table),
@@ -71,17 +71,13 @@ $(function(){
 	}
 	
 	//Update the UI to reflect the currently selected tuning.
-	function updateTuningUI(){
+	function updateTuningButton(){
 		$("#tuning .ui-icon-text").text(tuning.replace("-", " ")); //Update the button label
-		$("#tuningDialog input").removeAttr("checked"); //Uncheck any others
-		$("#tuning-" + tuning).attr("checked", true); //Check the specified
 	}
 	
 	//Update the UI to reflect the currently selected scale.
-	function updateScaleUI(){
+	function updateScaleButton(){
 		$("#scale .ui-icon-text").text(scale); //Update the button label
-		$("#scaleDialog input").removeAttr("checked"); //Uncheck any others
-		$("#scale-" + scale).attr("checked", true); //Check the specified
 	}
 	
 	//Update the UI to reflect the currently selected overblow status.
@@ -183,7 +179,7 @@ $(function(){
 	});
 	
 	//Handle the overblow button click.
-	$("#overblows").tap(function(){
+	$("#overblows").on("tap", function(){
 		overblows = !overblows;
 		updateOverblowUI();
 		return false;
@@ -192,17 +188,23 @@ $(function(){
 	//When the tuning dialog selection is changed, close it and update.
 	$("#tuningDialog input[name='tuning']").change(function(){
 		tuning = $(this).val(); //Get the new tuning
-		updateTuningUI(); //update the tuning UI
+		updateTuningButton(); //update the tuning UI
 		refreshMainUI(); //update the main UI for the new tuning
-		$('#tuningDialog').dialog('close');
+		
+		if(userUpdating) {
+			$('#tuningDialog').dialog('close');
+		}
 	});
 	
 	//When the scale dialog selection is changed, close it and update.
 	$("#scaleDialog input[name='scale']").change(function(){
 		scale = $(this).val(); //Get the new scale
-		updateScaleUI(); //update the scale UI
+		updateScaleButton(); //update the scale UI
 		refreshMainUI(); //update the main UI for the new scale
-		$('#scaleDialog').dialog('close');
+		
+		if(userUpdating) {
+			$('#scaleDialog').dialog('close');
+		}
 	});
 	
 	$('#fullscreenBtn').click(function(){
@@ -232,13 +234,12 @@ $(function(){
 			//Apply a width to the fieldset. This ensures that we do 
 			//actually have this correct number of columns!
 			var targetFieldsetWidth = cols * buttons.width();
-			var paddingToApply = (fieldset.width() - targetFieldsetWidth) / 2;
-			fieldset.css("padding-left", paddingToApply + "px")
-					.css("padding-right", paddingToApply + "px");
+			var paddingToApply = ((fieldset.outerWidth() - targetFieldsetWidth) / 2) - cols; //subtract a pixel for each col to allow for rounding
+			fieldset.css("padding-left", (paddingToApply + (cols/2)) + "px")
+					.css("padding-right", (paddingToApply - (cols/2))+ "px");
 			
 			//Remove the existing corners.
-			labels.removeClass("ui-corner-left ui-corner-right");
-			spans.removeClass("ui-corner-left ui-corner-right");
+			labels.removeClass("ui-first-child ui-last-child");
 			
 			labels.addClass(function(i){
 				switch(i) {
@@ -259,33 +260,21 @@ $(function(){
 	
 	//Need to make the three radio-button dialogs look nice by 
 	//adding rounded edges to the corner items after JQM does it's thing.
-	$('#positionDialog').live('pageshow', function(event){
+	$(document).on('pageshow', '#positionDialog', function(event){
 		makeRadioDialogLookNice(event);
 		updatePositionUI();
 	});
-	$('#songKeyDialog').live('pageshow', function(event){
+	$(document).on('pageshow', '#songKeyDialog', function(event){
 		makeRadioDialogLookNice(event);
 		updateSongKeyUI();
 	});
-	$('#harpKeyDialog').live('pageshow', function(event){
+	$(document).on('pageshow', '#harpKeyDialog', function(event){
 		makeRadioDialogLookNice(event);
 		updateHarpKeyUI();
 	});
 			
 	$(window).resize(function(){
-		var nowLandscape = $(window).height() < $(window).width();
-		//If it's now landscape and it wasn't previously...
-		//todo: listen for orientation change event instead.
-		if (nowLandscape && !landscape) {
-			//If the navbars are on, turn them off.
-			fullscreen = true;
-			updateFullscreenUI();
-		} else if (!nowLandscape && landscape) {
-			//Now portrait and wasn't previously portrait...
-			fullscreen = false;
-			updateFullscreenUI();
-		}
-		landscape = nowLandscape;
+		landscape = $(window).height() < $(window).width();
 		doCellHeight();
 	});
 	
@@ -309,8 +298,8 @@ $(function(){
 		updateSongKeyUI();
 		updatePositionUI();
 		updateHarpKeyUI();
-		updateTuningUI();
-		updateScaleUI();
+		updateTuningButton();
+		updateScaleButton();
 		refreshMainUI(); 
 	}
 	
@@ -343,9 +332,23 @@ $(function(){
 		}
 	}, false);
 	
-	$('#mainPage').live('pageshow', function(){
+	$(document).on('pageshow', '#mainPage', function(){
 		pageShown = true;
 		loadUI();
+	});
+	
+	
+	$(document).on('pageshow', '#tuningDialog', function(){
+		userUpdating = false;
+		//Select the correct tuning item.
+		$('input:radio[name="tuning"]').filter('[id="tuning-' + tuning + '"]').next().click();
+		userUpdating = true;
+	});
+	
+	$(document).on('pageshow', '#scaleDialog', function(){
+		userUpdating = false;
+		$('input:radio[name="scale"]').filter('[id="scale-' + scale + '"]').next().click();
+		userUpdating = true;
 	});
 	
 	//Only allow saving settings a few seconds after the app is opened.

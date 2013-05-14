@@ -3,10 +3,10 @@
     <head>
     <title>Harmonica Keyfinder</title>
 	<script src="phonegap.0.9.5.js"></script>
-	<script src="jquery.mobile/jquery-1.6.4.min.js"></script>
+	<script src="jquery.mobile/jquery-2.0.0.min.js"></script>
 	<script src="script.js"></script>
-	<script src="jquery.mobile/jquery.mobile-1.0rc1.min.js"></script>
-	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.0rc1.min.css" />
+	<script src="jquery.mobile/jquery.mobile-1.3.1.js"></script>
+	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.3.1.min.css" />
 	<link rel="stylesheet" href="style.css" />
 	<script src="harpHelper.js"></script>
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" /> 
@@ -16,7 +16,6 @@
     <div data-role="header" data-position="inline">
         <h1>Harp Keyfinder</h1>
 		<a id="fullscreenBtn" data-icon="grid" data-iconpos="notext" class="ui-btn-left"></a>
-		<a href="#aboutDialog" data-icon="info" data-rel="dialog" data-iconpos="notext" class="ui-btn-right" data-transition="none"></a>
 		<div data-role="navbar">
 			<ul>
 				<li><a id="key" data-icon="custom" href="#songKeyDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Key D</a></li>
@@ -144,12 +143,13 @@
 		</div>
 
 	</div>
-	<div data-role="footer" style="position:absolute; bottom: 0; left:0;">
+	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
 			<ul>
-				<li><a id="overblows" class="obs-on" data-icon="custom" data-transition="none"><sup class="hidesup">&nbsp;</sup>Overblows</a></li>
+				<li><a id="overblows" class="obs-on" data-icon="custom"><sup class="hidesup">&nbsp;</sup>Overblows</a></li>
 				<li><a id="scale" data-icon="text" href="#scaleDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Scale</a></li>
 				<li><a id="tuning" data-icon="text" href="#tuningDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Tuning</a></li>
+				<li class="ui-icon-nobackground"><a id="about" data-icon="info" href="#aboutDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>About</a></li>
 			</ul>
 		</div><!-- /navbar -->
 	</div>

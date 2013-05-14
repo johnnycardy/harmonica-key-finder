@@ -15,6 +15,32 @@
 	width:0px;
 }
 
+.ui-icon-nobackground .ui-icon{
+	background-color:transparent !important;
+	margin-left: -9px !important;
+	top:10px !important;
+}
+
+.ui-corner-tl {
+	-webkit-border-top-left-radius: inherit !important;
+	border-top-left-radius: inherit !important;
+}
+
+.ui-corner-tr {
+	-webkit-border-top-right-radius: inherit !important;
+	border-top-right-radius: inherit !important;
+}
+
+.ui-corner-bl {
+	-webkit-border-bottom-left-radius: inherit !important;
+	border-bottom-left-radius: inherit !important;
+}
+
+.ui-corner-br {
+	-webkit-border-bottom-right-radius: inherit !important;
+	border-bottom-right-radius: inherit !important;
+}
+
 .ui-icon-shadow {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
