@@ -21,6 +21,11 @@
 	top:10px !important;
 }
 
+.warning { 
+	color: red;
+	font-weight: bold; 
+}
+
 .ui-corner-tl {
 	-webkit-border-top-left-radius: inherit !important;
 	border-top-left-radius: inherit !important;
@@ -60,13 +65,14 @@
 	text-transform:uppercase;
 }
 
+.upper { 
+	text-transform:uppercase;
+}
+
 .ui-dialog .ui-header {
 	margin-top:50px;
 }
 
-.ui-header .ui-title  {
-	margin: 0.4em 40px 0.6em 40px;
-}
 .ui-header .ui-btn-right {
 	top: 0.2em !important;
 }

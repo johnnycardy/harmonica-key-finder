@@ -2,13 +2,15 @@
 <html>
     <head>
     <title>Harmonica Keyfinder</title>
+	<script src="json2.min.js"></script>
 	<script src="phonegap.0.9.5.js"></script>
 	<script src="jquery.mobile/jquery-2.0.0.min.js"></script>
+	<script src="harpHelper.js"></script>
+	<script src="songListHelper.js"></script>
 	<script src="script.js"></script>
 	<script src="jquery.mobile/jquery.mobile-1.3.1.js"></script>
 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.3.1.min.css" />
 	<link rel="stylesheet" href="style.css" />
-	<script src="harpHelper.js"></script>
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" /> 
 </head>
 <body>
@@ -21,6 +23,7 @@
 				<li><a id="key" data-icon="custom" href="#songKeyDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>Key D</a></li>
 				<li><a id="pos" data-icon="custom" href="#positionDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>2<sup>nd</sup> Pos</a></li>
 				<li><a id="harp" data-icon="custom" href="#harpKeyDialog" data-rel="dialog" data-transition="none"><sup class="hidesup">&nbsp;</sup>A harp</a></li>
+				<li class="ui-icon-nobackground"><a id="songList" data-icon="bars" href="#songListPage" data-transition="none"><sup class="hidesup">&nbsp;</sup>Songs</a></li>
 			</ul>
 		</div><!-- /navbar -->
     </div>
@@ -313,6 +316,62 @@
 			<input type="radio" name="tuning" id="tuning-melody-maker" value="melody-maker" />
 			<label for="tuning-melody-maker">Melody Maker</label>
 		</fieldset>
+	</div>
+</div>
+
+<div data-role="page" id="addSongPage">
+	<div data-role="header">
+		<h3>Add Song</h3>
+		<a id="addSongCancel" data-icon="back" data-rel="back" class="ui-btn-left">Cancel</a>
+		<a id="addSongOK" data-icon="plus" class="ui-btn-right">OK</a>
+	</div>
+	<div data-role="content">
+		<div>Current configuration:
+			<table>
+				<tr><td><strong>Harp: </strong></td><td id="addSongHarpKey"></td></tr>
+				<tr><td><strong>Key: </strong></td><td id="addSongKey"></td></tr>
+				<tr><td><strong>Tuning: </strong></td><td id="addSongTuning" class="upper"></td></tr>
+				<tr><td><strong>Scale: </strong></td><td id="addSongScale" class="upper"></td></tr>
+				<tr><td><strong>Overblows: </strong></td><td id="addSongOverblows"></td></tr>
+			</table>
+		</div>
+		<div data-role="fieldcontain">
+	        <label for="addSongName">Song name:</label>
+	        <input type="text" name="addSongName" id="addSongName" value=""  />
+			<label class="warning" style="display:none;">Song name must not be empty!</label>
+			<br/><br/>
+	        <label for="addSongNotes">Notes:</label>
+	        <textarea name="addSongNotes" id="addSongNotes" value=""></textarea>
+		</div>
+	</div>
+</div>
+
+<div data-role="page" id="songListPage">
+	<div data-role="header">
+		<h3>Song List</h3>
+		<a id="backBtn" data-icon="back" class="ui-btn-left" href="index.html">Back</a>
+		<a id="addSong" data-icon="plus" class="ui-btn-right" data-rel="dialog" href="#addSongPage">Add</a>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-autodividers="true"  data-filter="true" data-split-icon="delete" data-split-theme="d">
+		</ul>
+	</div>
+</div>
+
+<div data-role="dialog" id="confirmbox">
+    <div data-role="header" data-icon="false">
+        <h1>Confirmation</h1>
+    </div><!-- /header -->
+
+	<div data-role="content">
+		<div id="confirmMsg">Confirmation Message</div>
+
+		<br><p>
+		<center>
+			<a href="#" class="btnConfirmYes" data-role="button" data-icon="check" data-mini="true" data-inline="true">&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp; </a>
+			&nbsp;&nbsp;&nbsp;
+			<a href="#" class="btnConfirmNo" data-role="button" data-rel="back" data-icon="delete" data-mini="true" data-inline="true">Cancel</a>
+		</center>
 	</div>
 </div>
 

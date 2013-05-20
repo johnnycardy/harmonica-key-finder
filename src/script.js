@@ -10,12 +10,14 @@ $(function(){
 		sup = "<sup class=\"hidesup\">&nbsp;</sup>",
 		initialLoadComplete,
 		helper = getHarpHelper(),
+		songList = getSongListHelper(),
 		landscape = $(window).height() < $(window).width(),
 		fullscreen = false,		
 		table = $("#mainTable"),
 		cells = $("td", table),
 		cache,
 		userUpdating = true,
+		songListInitialLoad = false,
 		pageReady,
 		tableRows = [$(".blow2 td", table),
 					 $(".blow1 td", table),
@@ -26,6 +28,21 @@ $(function(){
 					 $(".draw3 td", table)];
 	
 	cache = { dlgs:[], btns:[], inputs:[], active:[] };	
+	
+	//Register for changes to the selected song
+	songList.onSongChange(function(song){
+		key = song.key;
+		pos = song.pos;
+		harp = song.harp;
+		overblows = song.overblows;
+		scale = song.scale;
+		tuning = song.tuning;
+		refreshMainUI();
+		updateOverblowUI();
+		updateTuningButton();
+		updateScaleButton();
+		history.back();
+	});
 		
 	function updateDialogUI(buttonId, buttonLabel, dialogId, dialogItemId) {
 		var dialog = cache.dlgs[dialogId] || (cache.dlgs[dialogId] = $("#"+ dialogId));
@@ -53,21 +70,21 @@ $(function(){
 	
 	//Update the UI to reflect the currently selected position.
 	function updatePositionUI(){
-		var superScript = null;
-		switch (pos) {
-			case 1: 
-				superScript = "st";
-				break;
-			case 2:
-				superScript = "nd";
-				break;
-			case 3:
-				superScript = "rd";
-				break;
-			default:
-				superScript = "th";
-		}
+		var superScript = getSuperscript(pos);
 		updateDialogUI("pos", sup + pos + superScript.sup() +" Pos", "positionDialog", "position-" + pos);
+	}
+	
+	function getSuperscript(n) {
+		switch (Number(pos)) {
+			case 1: 
+				return "st";
+			case 2:
+				return "nd";
+			case 3:
+				return "rd";
+			default:
+				return "th";
+		}
 	}
 	
 	//Update the UI to reflect the currently selected tuning.
@@ -128,7 +145,6 @@ $(function(){
 		var available = $(window).height() - $(".ui-header").height() - $(".ui-footer .ui-navbar").height() - $("#legendTable").height() - 30,
 			maxLineHeight = Math.floor(available / 8),
 			lineHeight, fontSize;
-		
 		//Make the height of the table cells relative to their width
 		lineHeight = Math.min(maxLineHeight, Math.floor(cells.width() * 0.9));
 		lineHeight = Math.max(14, lineHeight); //Apply a minimum height
@@ -207,7 +223,7 @@ $(function(){
 		}
 	});
 	
-	$('#fullscreenBtn').click(function(){
+	$('#fullscreenBtn').on('tap', function(){
 		fullscreen = !fullscreen;
 		updateFullscreenUI();
 		doCellHeight();
@@ -289,7 +305,6 @@ $(function(){
 		function fixCustomButton(btn){
 			$(".ui-icon", btn).removeClass("ui-icon");
 		}
-		
 		fixCustomButton($("#scale"));
 		fixCustomButton($("#tuning"));
 		
@@ -337,7 +352,6 @@ $(function(){
 		loadUI();
 	});
 	
-	
 	$(document).on('pageshow', '#tuningDialog', function(){
 		userUpdating = false;
 		//Select the correct tuning item.
@@ -349,6 +363,29 @@ $(function(){
 		userUpdating = false;
 		$('input:radio[name="scale"]').filter('[id="scale-' + scale + '"]').next().click();
 		userUpdating = true;
+	});
+	
+	$(document).on('pagebeforeshow', '#addSongPage', function(){
+		//Update the labels to show what the user has currently selected
+		$("#addSongName").val('');
+		$("#addSongNotes").val('');
+		$('#addSongPage .warning').hide();
+		$('#addSongHarpKey').html(harp.replace("s", "#") + " ("+ pos + "<sup>" + getSuperscript(pos) +"</sup> Pos)");
+		$('#addSongKey').text(key.replace("s", "#"));
+		$('#addSongTuning').text(tuning);
+		$('#addSongScale').text(scale);
+		$('#addSongOverblows').text(overblows ? 'On' : 'Off');
+	});
+	
+	$(document).on('tap', '#addSongOK', function(){
+		//Check they've filled in the song name
+		$songName = $("#addSongName");
+		if(!$songName.val()) {
+			$('#addSongPage .warning').show();
+		} else {
+			songList.add(harp, pos, key, tuning, scale, overblows, $songName.val(), $("#addSongNotes").val());
+			$('#addSongPage').dialog('close');
+		}
 	});
 	
 	//Only allow saving settings a few seconds after the app is opened.
