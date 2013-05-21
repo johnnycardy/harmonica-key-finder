@@ -56,7 +56,7 @@ function getSongListHelper() {
 	});
 	
 	function getSuperscript(n) {
-		switch (Number(pos)) {
+		switch (Number(n)) {
 			case 1: 
 				return "st";
 			case 2:
@@ -95,10 +95,12 @@ function getSongListHelper() {
 	function sort() {
 		//Sort the list
 		songList.sort(function(a, b){
-			if(a.songName === b.songName) {
+			var sA = a.songName.toLowerCase();
+			var sB = b.songName.toLowerCase();
+			if(sA === sB) {
 				return 0;
 			} else {
-				return a.songName > b.songName ? 1 : -1;
+				return sA > sB ? 1 : -1;
 			}
 		});
 	}
@@ -107,9 +109,10 @@ function getSongListHelper() {
 		var $result = $("");
 		
 		for(var i=0; i<songList.length; i++) {
+			var tuning = songList[i].tuning === "richter" ? "" : ", " + songList[i].tuning;
 			var $item = $("<li><a class=\"songLink\">" +
 							"<h2>"+ songList[i].songName +"</h2>" +
-							"<p><strong>"+ songList[i].harp +" Harp - "+ songList[i].pos +"<sup>"+ getSuperscript(songList[i].pos) +"</sup> Pos</strong> (Key of "+ songList[i].key.replace("s", "#") +")<br>"+ songList[i].notes +"</p>" +
+							"<p><strong>"+ songList[i].harp +" Harp"+ tuning +" - "+ songList[i].pos +"<sup>"+ getSuperscript(songList[i].pos) +"</sup> Pos</strong> (Key of "+ songList[i].key.replace("s", "#") +")<br>"+ songList[i].notes +"</p>" +
 						"</a><a href=\"#\">Delete</a>" +
 					"</li>");
 			
