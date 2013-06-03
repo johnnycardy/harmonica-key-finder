@@ -113,6 +113,16 @@ body {
 	padding: 0;
 }
 
+#myseydelBtn {
+	background: url(myseydel.jpg) 50% 50% no-repeat;
+	background-size: 83px 29px;
+	border-radius:0;
+	-webkit-border-radius: 0;
+	width:83px;
+	height:29px;
+}
+
+#myseydelBtn span { display:none; }
 
 #key .ui-icon {
 	background: url(105-piano.png) 50% 50% no-repeat;

@@ -367,7 +367,9 @@ $(function(){
 	
 	$(document).on('pageshow', '#mainPage', function(){
 		pageShown = true;
-		loadUI();
+		setTimeout(function(){
+			loadUI();
+		}, 0);
 	});
 	
 	$(document).on('pageshow', '#tuningDialog', function(){
