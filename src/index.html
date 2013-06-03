@@ -14,6 +14,7 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" /> 
 </head>
 <body>
+
 <div data-role="page" id="mainPage">
     <div data-role="header" data-position="inline">
         <h1>Harp Keyfinder</h1>
@@ -157,12 +158,33 @@
 		</div><!-- /navbar -->
 	</div>
 </div>
+
+
+<div data-role="page" id="splashPage">
+	<div data-role="content">
+		<div>
+			<img src="splash/harmonica.png" style="width: 50%;max-width: 300px;min-width: 180px;"/>
+		</div>
+		<div>
+			<img src="splash/keyfinder.png" style="width: 75%;max-width: 500px;min-width: 250px;"/>
+		</div>
+		<p>v1.1</p>
+		<div>
+			<img src="splash/inassociationwith.png" style="width: 50%;max-width: 300px;"/>
+		</div>
+		<div>
+			<img src="splash/1847NOBLE.png" style="width:100%;max-width: 700px;"/>
+		</div>
+	</div>
+</div>
+
+
 <div data-role="page" id="aboutDialog">
     <div data-role="header">
 		<h3>About</h3>
 	</div>
 	<div data-role="content">
-		<p><b>Harmonica Keyfinder</b><br> by Jonathan Cardy, 2011</p>
+		<p><b>Harmonica Keyfinder</b><br> by Jonathan Cardy, 2013</p>
 		<p>Contact jcardy@gmail.com</p>
 		<p>Icons by Joseph Wain / glyphish.com</p>
 	</div>
@@ -353,7 +375,7 @@
 <div data-role="page" id="songListPage">
 	<div data-role="header">
 		<h3>Song List</h3>
-		<a id="backBtn" data-icon="back" class="ui-btn-left" href="index.html">Back</a>
+		<a id="backBtn" data-icon="back" class="ui-btn-left" href="#mainPage">Back</a>
 		<a id="addSong" data-icon="plus" class="ui-btn-right" data-rel="dialog" href="#addSongPage">Add</a>
 	</div>
 	<div data-role="content">

@@ -19,6 +19,7 @@ $(function(){
 		userUpdating = true,
 		songListInitialLoad = false,
 		pageReady,
+		splashShown = false,
 		tableRows = [$(".blow2 td", table),
 					 $(".blow1 td", table),
 					 $(".blow0 td", table),
@@ -166,6 +167,7 @@ $(function(){
 	//When the song dialog selection is changed, close it and update.
 	$("#songKeyDialog input").change(function(){
 		$('#songKeyDialog').dialog('close');
+		
 		key = $(this).val(); //Get the new song key
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updateSongKeyUI(); //update the song UI
@@ -346,6 +348,22 @@ $(function(){
 			loadUI();
 		}
 	}, false);
+	
+	$(document).on("pagebeforechange", function(event, data) {
+		if(data.toPage.length && data.toPage[0].id === "mainPage" && !splashShown) {
+			
+			data.toPage = $("#splashPage");
+			return;
+			splashShown = true;
+			setTimeout(function(){
+				//Need to fade out the splash screen and show the main page
+				$.mobile.changePage( "#mainPage", {
+				  changeHash: false,
+				  transition: "slideup"
+				});
+			}, 1500);
+		}
+	});
 	
 	$(document).on('pageshow', '#mainPage', function(){
 		pageShown = true;
