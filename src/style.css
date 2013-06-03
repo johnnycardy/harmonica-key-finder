@@ -224,13 +224,13 @@ span.overblow  {
 }
 
 .scale-note-1, .scale-note-2, .scale-note-3, .scale-note-4, .scale-note-5, .scale-note-6, .scale-note-7, .scale-note-8, .scale-note-9 {
-	background: #85BAE4;
+	background-color: #85BAE4 !important;
 	background-image: -moz-linear-gradient(top,#85BAE4,#5393C5);
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#85BAE4),color-stop(1,#5393C5));
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#85BAE4', EndColorStr='#5393C5')";
 }
 .scale-note-0 {
-	background: #507089;
+	background-color: #507089 !important;
 	background-image: -moz-linear-gradient(top,#507089,#325876);
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#507089),color-stop(1,#325876));
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#507089', EndColorStr='#325876')";

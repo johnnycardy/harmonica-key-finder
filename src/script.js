@@ -353,7 +353,7 @@ $(function(){
 		if(data.toPage.length && data.toPage[0].id === "mainPage" && !splashShown) {
 			
 			data.toPage = $("#splashPage");
-			return;
+			
 			splashShown = true;
 			setTimeout(function(){
 				//Need to fade out the splash screen and show the main page
