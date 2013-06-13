@@ -365,6 +365,27 @@ $(function(){
 		}
 	});
 	
+	$(document).on('pageshow', '#splashPage', function(){
+		setTimeout(function(){
+			//Resize the seydel splash image so that it's the right size to not overflow the page.
+			var $harpimg = $("#harpsplashimg");
+			if($harpimg.length && $harpimg.is(":visible")) {
+				var harpheight = $harpimg.height();
+				var bottom = harpheight + $harpimg.position().top;
+				var overflow = bottom - $(window).height();
+				if(overflow > 0) {
+					var newharpheight = harpheight - overflow;
+					
+					//Remove the 100% width, and set the height.
+					$harpimg.css({
+						"width": "auto",
+						"height": newharpheight + "px"
+					});
+				}
+			}
+		}, 0);
+	});
+	
 	$(document).on('pageshow', '#mainPage', function(){
 		pageShown = true;
 		setTimeout(function(){
