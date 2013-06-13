@@ -108,9 +108,6 @@ $(function(){
 	function updateFullscreenUI(){
 		$(".ui-header .ui-navbar").toggle(!fullscreen);
 		$(".ui-footer").toggle(!fullscreen);
-		
-		var padding = !fullscreen && landscape ? 60 : 0;
-		$("#mainPage .ui-content").css("padding-bottom", padding + "px");
 	}
 	
 	function setRowNotes(row, notes) {
