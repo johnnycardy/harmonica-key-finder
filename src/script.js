@@ -20,6 +20,8 @@ $(function(){
 		songListInitialLoad = false,
 		pageReady,
 		splashShown = false,
+		splashTimeout,
+		splashAlreadyShown = false, //Bool to allow a shorter splash screen display after the first time it's shown.
 		tableRows = [$(".blow2 td", table),
 					 $(".blow1 td", table),
 					 $(".blow0 td", table),
@@ -326,12 +328,14 @@ $(function(){
 			window.localStorage.setItem("harp-harp", harp);
 			window.localStorage.setItem("harp-scale", scale);
 			window.localStorage.setItem("harp-tuning", tuning);
+			window.localStorage.setItem("splashShown", true);
 		}
 	}
 	
 	//When the phone is ready, check localstorage for a saved state
 	document.addEventListener("deviceready", function(){
 		if (window.localStorage && window.localStorage.getItem("harp-key")) {
+			splashAlreadyShown = !!window.localStorage.getItem("splashShown");
 			pos = Number(window.localStorage.getItem("harp-pos"));
 			overblows = Boolean(window.localStorage.getItem("harp-overblows"));
 			key = window.localStorage.getItem("harp-key");
@@ -350,16 +354,24 @@ $(function(){
 		if(data.toPage.length && data.toPage[0].id === "mainPage" && !splashShown) {
 			
 			data.toPage = $("#splashPage");
-			
 			splashShown = true;
-			setTimeout(function(){
+			
+			splashTimeout = setTimeout(function(){
 				//Need to fade out the splash screen and show the main page
 				$.mobile.changePage( "#mainPage", {
 				  changeHash: false,
 				  transition: "slideup"
 				});
-			}, 1500);
+			}, splashAlreadyShown ? 1500 : 2500);
 		}
+	});
+	
+	$(document).on('tap', '#splashPage', function(){
+		clearTimeout(splashTimeout);
+		$.mobile.changePage( "#mainPage", {
+		  changeHash: false,
+		  transition: "none"
+		});
 	});
 	
 	$(document).on('pageshow', '#splashPage', function(){
