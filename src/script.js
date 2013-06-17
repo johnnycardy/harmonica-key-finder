@@ -44,7 +44,9 @@ $(function(){
 		updateOverblowUI();
 		updateTuningButton();
 		updateScaleButton();
-		history.back();
+		$.mobile.changePage( "#mainPage", {
+		  changeHash: true
+		});
 	});
 		
 	function updateDialogUI(buttonId, buttonLabel, dialogId, dialogItemId) {
@@ -165,8 +167,9 @@ $(function(){
 	
 	//When the song dialog selection is changed, close it and update.
 	$("#songKeyDialog input").change(function(){
-		$('#songKeyDialog').dialog('close');
-		
+		$.mobile.changePage( "#mainPage", {
+		  changeHash: false
+		});
 		key = $(this).val(); //Get the new song key
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updateSongKeyUI(); //update the song UI
@@ -209,7 +212,9 @@ $(function(){
 		refreshMainUI(); //update the main UI for the new tuning
 		
 		if(userUpdating) {
-			$('#tuningDialog').dialog('close');
+			$.mobile.changePage( "#mainPage", {
+			  changeHash: false
+			});
 		}
 	});
 	
@@ -378,7 +383,7 @@ $(function(){
 		setTimeout(function(){
 			//Resize the seydel splash image so that it's the right size to not overflow the page.
 			var $harpimg = $("#harpsplashimg");
-			if($harpimg.length && $harpimg.is(":visible")) {
+			if($harpimg.length) {
 				var harpheight = $harpimg.height();
 				var bottom = harpheight + $harpimg.position().top;
 				var overflow = bottom - $(window).height();

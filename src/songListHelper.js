@@ -25,7 +25,7 @@ function getSongListHelper() {
 	}
 
 	
-	$("#songListPage").on('tap', 'li', function(e) {
+	$("#songListPage").on('click', 'li', function(e) {
 		$li = $(e.toElement).parents("li");
 		var song = $li.data("song");
 	
@@ -45,8 +45,6 @@ function getSongListHelper() {
 				
 				//And save
 				save();
-				
-				$songListUI.listview('refresh');
 			});
 		} else {	
 			if(onSongChangeCallback && song) {
