@@ -179,7 +179,9 @@ $(function(){
 	
 	//When the key dialog selection is changed, close it and update.
 	$("#positionDialog input").change(function(event){
-		$('#positionDialog').dialog('close');
+		$.mobile.changePage( "#mainPage", {
+			  changeHash: false
+			});
 		pos = Number($(this).val()); //Get the new position
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updatePositionUI(); //update the song UI
@@ -195,7 +197,9 @@ $(function(){
 		updateSongKeyUI(); //update the song UI
 		refreshMainUI(); 
 		
-		$('#harpKeyDialog').dialog('close');
+		$.mobile.changePage( "#mainPage", {
+		  changeHash: false
+		});
 	});
 	
 	//Handle the overblow button click.
@@ -225,7 +229,9 @@ $(function(){
 		refreshMainUI(); //update the main UI for the new scale
 		
 		if(userUpdating) {
-			$('#scaleDialog').dialog('close');
+			$.mobile.changePage( "#mainPage", {
+			  changeHash: false
+			});
 		}
 	});
 	
