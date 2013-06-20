@@ -1,6 +1,6 @@
 package com.johnnycardy.keyfinder;
 
-import com.phonegap.*;
+import org.apache.cordova.*;
 import android.os.Bundle;
 
 public class App extends DroidGap {

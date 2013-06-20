@@ -312,6 +312,16 @@ $(function(){
 		doCellHeight();
 	}, false);
 	
+	document.addEventListener("backbutton", function(){
+		if ($.mobile.activePage.attr('id') == "mainPage") {
+            navigator.app.exitApp();
+        } else {
+			$.mobile.changePage( "#mainPage", {
+			  changeHash: false
+			});
+        }
+	}, false);
+	
 	function loadUI() {
 		//Scale and tuning buttons need to be set up so they can display dynamic text instead of an icon.
 		function fixCustomButton(btn){
