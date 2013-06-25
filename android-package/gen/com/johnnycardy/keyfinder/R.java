@@ -17,6 +17,9 @@ public final class R {
         public static final int main=0x7f030000;
     }
     public static final class string {
-        public static final int app_name=0x7f040000;
+        public static final int app_name=0x7f050000;
+    }
+    public static final class xml {
+        public static final int config=0x7f040000;
     }
 }
