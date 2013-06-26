@@ -327,6 +327,21 @@ $(function(){
 	
 	//When the phone is ready, check localstorage for a saved state
 	document.addEventListener("deviceready", function(){
+		
+		document.addEventListener("menubutton", function(){
+			fullscreen = !fullscreen;
+			updateFullscreenUI();
+			doCellHeight();
+		}, true);
+		
+		document.addEventListener("backbutton", function(){
+			if ($.mobile.activePage.attr('id') == "mainPage") {
+				navigator.app.exitApp();
+			} else {
+				$.mobile.changePage( "#mainPage");
+			}
+		}, true);
+		
 		if (window.localStorage && window.localStorage.getItem("harp-key")) {
 			splashAlreadyShown = !!window.localStorage.getItem("splashShown");
 			pos = Number(window.localStorage.getItem("harp-pos"));
@@ -341,24 +356,6 @@ $(function(){
 			//Reload the UI with saved settings
 			loadUI();
 		}
-			
-		document.addEventListener("menubutton", function(){
-			
-			fullscreen = !fullscreen;
-			updateFullscreenUI();
-			doCellHeight();
-		}, false);
-		
-		document.addEventListener("backbutton", function(){
-			alert($.mobile.activePage.attr('id'));
-			if ($.mobile.activePage.attr('id') == "mainPage") {
-				navigator.app.exitApp();
-			} else {
-				$.mobile.changePage( "#mainPage");
-			}
-		}, false);
-		
-		
 	}, false);
 	
 	$(document).on("pagebeforechange", function(event, data) {
