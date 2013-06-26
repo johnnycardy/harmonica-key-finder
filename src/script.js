@@ -44,9 +44,7 @@ $(function(){
 		updateOverblowUI();
 		updateTuningButton();
 		updateScaleButton();
-		$.mobile.changePage( "#mainPage", {
-		  changeHash: true
-		});
+		$.mobile.changePage( "#mainPage");
 	});
 		
 	function updateDialogUI(buttonId, buttonLabel, dialogId, dialogItemId) {
@@ -167,9 +165,7 @@ $(function(){
 	
 	//When the song dialog selection is changed, close it and update.
 	$("#songKeyDialog input").change(function(){
-		$.mobile.changePage( "#mainPage", {
-		  changeHash: false
-		});
+		$.mobile.changePage( "#mainPage");
 		key = $(this).val(); //Get the new song key
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updateSongKeyUI(); //update the song UI
@@ -179,9 +175,7 @@ $(function(){
 	
 	//When the key dialog selection is changed, close it and update.
 	$("#positionDialog input").change(function(event){
-		$.mobile.changePage( "#mainPage", {
-			  changeHash: false
-			});
+		$.mobile.changePage( "#mainPage");
 		pos = Number($(this).val()); //Get the new position
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updatePositionUI(); //update the song UI
@@ -197,9 +191,7 @@ $(function(){
 		updateSongKeyUI(); //update the song UI
 		refreshMainUI(); 
 		
-		$.mobile.changePage( "#mainPage", {
-		  changeHash: false
-		});
+		$.mobile.changePage( "#mainPage");
 	});
 	
 	//Handle the overblow button click.
@@ -216,9 +208,7 @@ $(function(){
 		refreshMainUI(); //update the main UI for the new tuning
 		
 		if(userUpdating) {
-			$.mobile.changePage( "#mainPage", {
-			  changeHash: false
-			});
+			$.mobile.changePage( "#mainPage");
 		}
 	});
 	
@@ -229,9 +219,7 @@ $(function(){
 		refreshMainUI(); //update the main UI for the new scale
 		
 		if(userUpdating) {
-			$.mobile.changePage( "#mainPage", {
-			  changeHash: false
-			});
+			$.mobile.changePage( "#mainPage");
 		}
 	});
 	
@@ -306,22 +294,6 @@ $(function(){
 		doCellHeight();
 	});
 	
-	document.addEventListener("menubutton", function(){
-		fullscreen = !fullscreen;
-		updateFullscreenUI();
-		doCellHeight();
-	}, false);
-	
-	document.addEventListener("backbutton", function(){
-		if ($.mobile.activePage.attr('id') == "mainPage") {
-            navigator.app.exitApp();
-        } else {
-			$.mobile.changePage( "#mainPage", {
-			  changeHash: false
-			});
-        }
-	}, false);
-	
 	function loadUI() {
 		//Scale and tuning buttons need to be set up so they can display dynamic text instead of an icon.
 		function fixCustomButton(btn){
@@ -369,6 +341,24 @@ $(function(){
 			//Reload the UI with saved settings
 			loadUI();
 		}
+			
+		document.addEventListener("menubutton", function(){
+			
+			fullscreen = !fullscreen;
+			updateFullscreenUI();
+			doCellHeight();
+		}, false);
+		
+		document.addEventListener("backbutton", function(){
+			alert($.mobile.activePage.attr('id'));
+			if ($.mobile.activePage.attr('id') == "mainPage") {
+				navigator.app.exitApp();
+			} else {
+				$.mobile.changePage( "#mainPage");
+			}
+		}, false);
+		
+		
 	}, false);
 	
 	$(document).on("pagebeforechange", function(event, data) {
@@ -380,7 +370,6 @@ $(function(){
 			splashTimeout = setTimeout(function(){
 				//Need to fade out the splash screen and show the main page
 				$.mobile.changePage( "#mainPage", {
-				  changeHash: false,
 				  transition: "slideup"
 				});
 			}, splashAlreadyShown ? 1500 : 2500);
@@ -390,7 +379,6 @@ $(function(){
 	$(document).on('tap', '#splashPage', function(){
 		clearTimeout(splashTimeout);
 		$.mobile.changePage( "#mainPage", {
-		  changeHash: false,
 		  transition: "none"
 		});
 	});
