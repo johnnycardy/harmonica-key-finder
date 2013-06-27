@@ -109,8 +109,8 @@ function getSongListHelper() {
 		for(var i=0; i<songList.length; i++) {
 			var tuning = songList[i].tuning === "richter" ? "" : ", " + songList[i].tuning;
 			var $item = $("<li><a class=\"songLink\">" +
-							"<h2>"+ songList[i].songName +"</h2>" +
-							"<p><strong>"+ songList[i].harp +" Harp"+ tuning +" - "+ songList[i].pos +"<sup>"+ getSuperscript(songList[i].pos) +"</sup> Pos</strong> (Key of "+ songList[i].key.replace("s", "#") +")<br>"+ songList[i].notes +"</p>" +
+							"<h2 style=\"white-space:normal;\">"+ songList[i].songName +"</h2>" +
+							"<p style=\"white-space:normal;\"><strong>"+ songList[i].harp +" Harp"+ tuning +" - "+ songList[i].pos +"<sup>"+ getSuperscript(songList[i].pos) +"</sup> Pos</strong> (Key of "+ songList[i].key.replace("s", "#") +")<br>"+ songList[i].notes +"</p>" +
 						"</a><a href=\"#\">Delete</a>" +
 					"</li>");
 			
