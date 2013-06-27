@@ -20,6 +20,8 @@
 package com.johnnycardy.keyfinder;
 
 import android.os.Bundle;
+import android.view.View;
+
 import org.apache.cordova.*;
 
 public class HarpKeyFinder extends DroidGap
@@ -30,6 +32,12 @@ public class HarpKeyFinder extends DroidGap
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
+        
+        super.appView.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
     }
 }
 
