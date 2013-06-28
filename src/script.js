@@ -44,7 +44,7 @@ $(function(){
 		updateOverblowUI();
 		updateTuningButton();
 		updateScaleButton();
-		$.mobile.changePage( "#mainPage");
+		$.mobile.changePage( "#mainPage", { transition: 'none'});
 	});
 		
 	function updateDialogUI(buttonId, buttonLabel, dialogId, dialogItemId) {
@@ -165,7 +165,7 @@ $(function(){
 	
 	//When the song dialog selection is changed, close it and update.
 	$("#songKeyDialog input").change(function(){
-		$.mobile.changePage( "#mainPage");
+		$.mobile.changePage( "#mainPage", { transition: 'none'});
 		key = $(this).val(); //Get the new song key
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updateSongKeyUI(); //update the song UI
@@ -175,7 +175,7 @@ $(function(){
 	
 	//When the key dialog selection is changed, close it and update.
 	$("#positionDialog input").change(function(event){
-		$.mobile.changePage( "#mainPage");
+		$.mobile.changePage( "#mainPage", { transition: 'none'});
 		pos = Number($(this).val()); //Get the new position
 		harp = helper.calcHarp(key, pos); //calculate the new harp
 		updatePositionUI(); //update the song UI
@@ -191,7 +191,7 @@ $(function(){
 		updateSongKeyUI(); //update the song UI
 		refreshMainUI(); 
 		
-		$.mobile.changePage( "#mainPage");
+		$.mobile.changePage( "#mainPage", { transition: 'none'});
 	});
 	
 	//Handle the overblow button click.
@@ -208,7 +208,7 @@ $(function(){
 		refreshMainUI(); //update the main UI for the new tuning
 		
 		if(userUpdating) {
-			$.mobile.changePage( "#mainPage");
+			$.mobile.changePage( "#mainPage", { transition: 'none'});
 		}
 	});
 	
@@ -219,7 +219,7 @@ $(function(){
 		refreshMainUI(); //update the main UI for the new scale
 		
 		if(userUpdating) {
-			$.mobile.changePage( "#mainPage");
+			$.mobile.changePage( "#mainPage", { transition: 'none'});
 		}
 	});
 	
@@ -338,7 +338,7 @@ $(function(){
 			if ($.mobile.activePage.attr('id') == "mainPage") {
 				navigator.app.exitApp();
 			} else {
-				$.mobile.changePage( "#mainPage");
+				$.mobile.changePage( "#mainPage", { transition: 'none'});
 			}
 		}, true);
 		
