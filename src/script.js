@@ -290,7 +290,23 @@ $(function(){
 	});
 			
 	$(window).resize(function(){
+		var wasLandscape = landscape;
 		landscape = $(window).height() < $(window).width();
+		
+		//If the orientation has changed
+		if(landscape !== wasLandscape) {
+			
+			if(landscape && !fullscreen) {
+				//If it's now landscape, and not already fullscreen, then go fullscreen.
+				fullscreen = true;
+				updateFullscreenUI();
+			} else if(!landscape && fullscreen) {
+				//If it's now portrait and already fullscreen, get rid of fullscreen.
+				fullscreen = false;
+				updateFullscreenUI();
+			}
+		}
+		
 		doCellHeight();
 	});
 	
