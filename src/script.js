@@ -397,9 +397,9 @@ $(function(){
 	});
 	
 	$(document).on('pageshow', '#mainPage', function(){
-		pageShown = true;
 		setTimeout(function(){
 			loadUI();
+			pageShown = true;
 		}, 0);
 	});
 	
