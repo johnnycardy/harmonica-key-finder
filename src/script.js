@@ -97,7 +97,7 @@ $(function(){
 	
 	//Update the UI to reflect the currently selected scale.
 	function updateScaleButton(){
-		$("#scale .ui-icon-text").text(scale); //Update the button label
+		$("#scale .ui-icon-text").text(scale.replace("-", " ")); //Update the button label
 	}
 	
 	//Update the UI to reflect the currently selected overblow status.
